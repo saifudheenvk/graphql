@@ -1,4 +1,5 @@
 const Event = require("../../database/events/events.model");
+const User = require("../../database/users/users.model");
 const { isAuthenticated } = require("./auth");
 
 exports.createEvent = async (args, req) => {

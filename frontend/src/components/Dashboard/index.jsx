@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory, Route } from "react-router-dom";
+import { useHistory, Route, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
 import { DashboardConfig } from "./DashboardConfig";
@@ -30,8 +30,13 @@ const Dashboard = () => {
       <Header />
       <Content>
         {DashboardConfig.map((item) => (
-          <Route path={item.url} component={item.component} />
+          <Route key={item.url} path={item.url} component={item.component} />
         ))}
+        <Route
+          path="/dashboard"
+          exact
+          render={() => <Redirect to={`/dashboard/events`} />}
+        />
       </Content>
     </Container>
   );

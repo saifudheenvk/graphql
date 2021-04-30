@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import ApiFunction from "../../actions/Api";
 
 const ItemContainer = styled.div`
   margin: 136px 100px;
@@ -38,26 +39,56 @@ const Events = () => {
   ]);
   const [tableContents, setTableContents] = useState([]);
 
+  const fetchEvents = () => {
+    const requestObject = {
+      query: `
+        query{
+            events{
+                title
+                description
+                date
+            }
+        }
+      `,
+    };
+    ApiFunction(requestObject).then(
+      (response) => {
+        console.log(response.data.data);
+        setTableContents(response.data.data.events);
+      },
+      (error) => {
+        throw error;
+      }
+    );
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
   return (
     <ItemContainer>
       <Title>Events</Title>
       <Table>
         <tr>
           {headings.map((h, i) => (
-            <Header border={i !== headings.length - 1 ? "1px solid black" : ""}>
+            <Header
+              key={i}
+              border={i !== headings.length - 1 ? "1px solid black" : ""}
+            >
               {h}
             </Header>
           ))}
         </tr>
         {tableContents.length
           ? tableContents.map((content, i) => {
-              const date = new Date(content.date);
+              const date = new Date(parseInt(content.date));
               return (
                 <tr key={i}>
                   <Data border="1px solid black">{i}</Data>
                   <Data border="1px solid black">{content.title}</Data>
                   <Data border="1px solid black">{content.description}</Data>
-                  <Data border="">{new Date(content.date).toISOString()}</Data>
+                  <Data border="">{date.toISOString()}</Data>
                 </tr>
               );
             })

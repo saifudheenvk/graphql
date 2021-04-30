@@ -1,5 +1,6 @@
 import React from "react";
 import Events from "../Events";
+import NewEvents from "../NewEvents";
 export const DashboardConfig = [
   {
     url: "/dashboard/events",
@@ -7,7 +8,7 @@ export const DashboardConfig = [
   },
   {
     url: "/dashboard/newevent",
-    component: () => <div>New Events</div>,
+    component: () => <NewEvents />,
   },
   {
     url: "/dashboard/bookings",

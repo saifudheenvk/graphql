@@ -58,16 +58,6 @@ const Links = styled(Link)`
   text-decoration-line: none;
 `;
 
-export const toastStyle = {
-  position: "top-center",
-  autoClose: 5000,
-  hideProgressBar: true,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-};
-
 const Login = () => {
   const params = useParams();
   const [formObject, setFormObject] = useState({});
@@ -101,7 +91,7 @@ const Login = () => {
             "userCredentials",
             response.data.data.login.token
           );
-          history.push("/dashboard/events");
+          history.push("/dashboard");
         }
       })
       .catch((err) => {
